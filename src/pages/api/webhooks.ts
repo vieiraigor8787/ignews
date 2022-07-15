@@ -20,7 +20,11 @@ export const config = {
   },
 };
 
-const relevantEvents = new Set(["checkout.session.completed"]);
+const relevantEvents = new Set([
+  "checkout.session.completed",
+  "customer.subscription.deleted",
+  "customer.subscription.updated",
+]);
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
@@ -44,25 +48,37 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (relevantEvents.has(type)) {
       try {
         switch (type) {
-          case "checkout.session.completed":
+          case "customer.subscription.deleted":
+          case "customer.subscription.updated":
+            const subscription = event.data.object as Stripe.Subscription;
 
-          const checkoutSession = event.data.object as Stripe.Checkout.Session;
-          await saveSubscription(
-            checkoutSession.subscription.toString(),
-            checkoutSession.customer.toString()
-          )
+            await saveSubscription(
+              subscription.id,
+              subscription.customer.toString(),
+              false
+            );
+
+            break;
+          case "checkout.session.completed":
+            const checkoutSession = event.data
+              .object as Stripe.Checkout.Session;
+            await saveSubscription(
+              checkoutSession.subscription.toString(),
+              checkoutSession.customer.toString()
+            );
             break;
           default:
             throw new Error("Unhandled event");
         }
-      } catch (err) {
-        return res.json({ error: "webhook error failed" });
+      } catch (error) {
+        console.log(error)
+        return res.status(400).json({ error: "webhook error failed" });
       }
 
       res.json({ received: true });
+    } 
     } else {
       res.setHeader("Allow", "POST");
       res.status(405).end("Method not allowed");
-    }
   }
 };
