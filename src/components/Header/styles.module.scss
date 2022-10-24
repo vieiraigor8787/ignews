@@ -1,7 +1,6 @@
 .headerContainer {
   height: 5rem;
   border-bottom: 1px solid var(--gray-800);
-
 }
 
 .headerContent {
@@ -13,10 +12,6 @@
   display: flex;
   align-items: center;
 
-  img {
-    width: 10%;
-  }
-
   nav {
     margin-left: 5rem;
     height: 5rem;
@@ -27,7 +22,8 @@
       padding: 0 0.5rem;
       height: 5rem;
       line-height: 5rem;
-      color: var(--gray-normal);
+      color: var(--gray-300);
+
       transition: color 0.2s;
 
       & + a {
@@ -35,7 +31,7 @@
       }
 
       &:hover {
-        color: var(--white)
+        color: var(--white);
       }
 
       &.active {
@@ -44,19 +40,19 @@
       }
 
       &.active::after {
-        content: "";
+        content: '';
         height: 3px;
         border-radius: 3px 3px 0 0;
         width: 100%;
         position: absolute;
         bottom: 1px;
         left: 0;
-        background: var(--yellow-normal)
+        background: var(--yellow-500);
       }
     }
   }
 
-  button {
+  > button {
     margin-left: auto;
   }
 }
