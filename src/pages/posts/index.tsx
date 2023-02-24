@@ -46,7 +46,7 @@ export default function Posts({ posts }: PostsProps) {
 export const getStaticProps: useGetStaticProps = async () => {
   const prismicClient = getPrismicClient();
 
-  const response = await prismicClient.getAllByType('publication');
+  const response = await prismicClient.getAllByType('posts');
 
   const posts = response.map((post) => {
     return {
