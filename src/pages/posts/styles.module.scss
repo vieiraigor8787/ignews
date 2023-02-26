@@ -14,7 +14,7 @@
     & + a {
       margin-top: 2rem;
       padding-top: 2rem;
-      border-top: 1px solid var(--gray-normal);
+      border-top: 1px solid var(--gray-500);
     }
 
     time {
@@ -32,13 +32,13 @@
     }
 
     p {
-      color: var(--gray-light);
+      color: var(--gray-100);
       margin-top: 0.5rem;
       line-height: 1.625rem;
     }
 
     &:hover strong {
-      color: var(--yellow-normal)
+      color: var(--yellow-500);
     }
   }
 }

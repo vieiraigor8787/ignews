@@ -1,22 +1,22 @@
-import { useGetStaticProps } from "next-slicezone/hooks";
-import Head from "next/head";
-import * as prismic from "@prismicio/client";
+import { useGetStaticProps } from 'next-slicezone/hooks'
+import Head from 'next/head'
+import * as prismic from '@prismicio/client'
 
-import { getPrismicClient } from "../../services/prismic";
-import  * as prismicH from "@prismicio/helpers";
-import Link from "next/link";
+import { getPrismicClient } from '../../services/prismic'
+import * as prismicH from '@prismicio/helpers'
+import Link from 'next/link'
 
-import styles from "./styles.module.scss";
+import styles from './styles.module.scss'
 
 type Post = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  updatedAt: string;
-};
+  slug: string
+  title: string
+  excerpt: string
+  updatedAt: string
+}
 
 interface PostsProps {
-  posts: Post[];
+  posts: Post[]
 }
 
 export default function Posts({ posts }: PostsProps) {
@@ -40,33 +40,34 @@ export default function Posts({ posts }: PostsProps) {
         </div>
       </main>
     </>
-  );
+  )
 }
 
 export const getStaticProps: useGetStaticProps = async () => {
-  const prismicClient = getPrismicClient();
+  const prismicClient = getPrismicClient()
 
-  const response = await prismicClient.getAllByType('posts');
+  const response = await prismicClient.getAllByType('posts')
 
   const posts = response.map((post) => {
     return {
       slug: post.uid,
       title: prismicH.asText(post.data.title),
       excerpt:
-        post.data.content.find((content) => content.type === "paragraph")
-          ?.text ?? "",
+        post.data.content.find(
+          (content: { type: string }) => content.type === 'paragraph'
+        )?.text ?? '',
       updatedAt: new Date(post.last_publication_date).toLocaleDateString(
-        "pt-BR",
+        'pt-BR',
         {
-          day: "2-digit",
-          month: "long",
-          year: "numeric",
+          day: '2-digit',
+          month: 'long',
+          year: 'numeric',
         }
       ),
-    };
-  });
+    }
+  })
 
   return {
     props: { posts },
-  };
-};
+  }
+}

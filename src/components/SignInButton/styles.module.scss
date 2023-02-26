@@ -2,7 +2,7 @@
   height: 3rem;
   border-radius: 3rem;
   background: var(--white);
-  color: var(--gray-dark);
+  color: var(--gray-900);
   padding: 0 1.5rem;
 
   display: flex;
@@ -22,7 +22,6 @@
     }
   }
 
-  
   &:hover {
     filter: brightness(0.8);
     transition: filter 0.2s;

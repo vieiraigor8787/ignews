@@ -16,17 +16,18 @@
   time {
     display: block;
     font-size: 1rem;
-    color: var(--gray-normal);
-    margin-top: 1.5rem; 
+    color: var(--gray-500);
+    margin-top: 1.5rem;
   }
 
   .postContent {
     margin-top: 2rem;
     line-height: 2rem;
     font-size: 1.125rem;
-    color: var(--gray-light);
+    color: var(--gray-100);
 
-    p, ul {
+    p,
+    ul {
       margin: 1.5rem 0;
     }
 
